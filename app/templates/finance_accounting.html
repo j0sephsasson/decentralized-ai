@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="w3-container w3-row-padding w3-margin" style="width: 100%;" id="profile">
+    <div class="w3-section container w3-center">
+        <div>
+            <input type="hidden" id="enable">
+            <!-- doc card 3 -->
+            <div class="column" style="width: 100%;">
+                <ul class="w3-ul w3-white w3-hover-shadow">
+                    <li class="w3-black w3-xlarge w3-padding-32">Finance & Accounting AI Model</li>
+
+                    <!-- CONTENT HERE -->
+                    <li class="w3-padding-16">
+                        
+                        <div class="control">
+                            <p class="w3-margin">Supported Uploads: csv, xlsx, html</p>
+                        </div>
+                        
+                    </li>
+
+                    <!-- content field -->
+                    <li class="w3-padding-16">
+                        <div class="field">
+                            <form action="/reg_clf_models" method="post" id="trainBTN" enctype="multipart/form-data">
+                                <label class="label" style="font-size: x-large;">Create NFT</label>
+                                <div class="control">
+                                    <!-- AWS S3 BUCKET -->
+                                    <!-- <script src="https://app.simplefileupload.com/buckets/914df6032c1440909440144626509139.js"></script>
+                                    <input type="hidden" name="url" id="url" class="simple-file-upload"> -->
+                                    <!-- END AWS S3 BUCKET -->
+                                    <label id="upload-label" class="w3-margin w3-center w3-hover-shadow"
+                                        style="cursor: pointer; padding: 10px 20px; background-color: black; border-radius: 15px; color: white;"
+                                        for="upload">Upload Data</label>
+                                    <input class="input w3-center w3-margin" type="file"
+                                        style="opacity: 0; position: absolute; z-index: -1;" id="upload"
+                                        onchange="registerUpload()" name="upload" required>
+                                </div>
+                                <div class="control">
+                                    <input class="input w3-center w3-margin" name="target" type="text" placeholder="Model Target"
+                                        style="width: 50%; border-radius: 15px;" required>
+                                </div>
+                                <div class="control">
+                                    <input class="input w3-center w3-margin " name="desc" type="text" placeholder="Model Description"
+                                        style="width: 50%; border-radius: 15px;" required>
+                                    <input type="hidden" value="False" name="shift">
+                                </div>
+                                <div class="control">
+                                    <button class="w3-btn w3-round-large w3-black" style="width: 150px;" onclick="train();">Train Model</button>
+                                </div>
+                            </form>
+                            <div class="control w3-margin" id="progress" style="display: none;">
+                                <p>Training your AI model...</p>
+                                <p style="color: #D0342C;">PLEASE DO NOT LEAVE THIS SCREEN!</p>
+                                <div class="spinner-grow text-primary" role="status">
+                                    
+                                </div>
+                                <div class="spinner-grow text-primary" role="status">
+                                    
+                                </div>
+                                <div class="spinner-grow text-primary" role="status">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

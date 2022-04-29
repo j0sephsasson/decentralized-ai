@@ -1,0 +1,55 @@
+KEY: {-- : NOT DONE, XX : DONE}
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+DOJO:
+
+XX NOT ONE ALGORITHM ACCOUNTS FOR DUPLICATE FEATURES OR INDEXES
+ 
+XX NOT ONE ALGORITHM ACCOUNTS FOR IMBALANCED TARGET
+	-- (USE SMOTE)
+
+XX APP ALLOWS ALL UPLOAD TYPES (NOT SECURE)
+
+XX BUILD IN COMMISSION FEE TO PLATFORM (mint/marketplace)
+
+XX CONNECT CONTACT FORM TO BE
+
+XX PUT QUANTSTREET ALGORITHM IN BE OF EQUITY SERVICES ***NOT FEASIBLE FOR MVP***
+
+XX PUT SPORTS ALGO IN BE OF SPORTS SERVICES
+
+XX MAKE SURE IPHONE VERSION IS VALID
+
+XX SET UP NEWSLETTER SUBSCRIPTION
+
+XX WIRE UP SERVICES TO CORRECT API
+
+XX BUILD DOCS
+
+XX INITIAL ERROR HANDLING
+
+XX EXTENSIVE ERROR HANDLING
+
+XX CONNECT ALL EXTRANEOUS LINKS + BUTTONS (footer, anywhere else)
+
+XX ADD DEMO VIDEO
+
+XX MIGRATE TO POSTGRESQL + DEPLOY
+
+XX DEPLOY CONTRACT TO ETHER MAINNET // CONNECT TO INFURA ?
+
+XX *** ADD REDIS JOB QUEUE FOR TRAINING MODELS ***
+
+XX hide marketplace buy button from un-auth users
+
+-- fix up UI on profile
+
+-- users can list for sale 2x (FIX THIS!!) --> send async request to db first (multi ajax request solution maybe)
+
+-- Add more services to services
+
+-- Add on-boarding flow
+
+-- HANDLE METAMASK REJECTIONS!!
+
+-- NO VECTORIZER / NLP MODEL IN REG/CLF API (optional)

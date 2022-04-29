@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .btn-group button {
+        background-color: black; /* black background */
+      border: 1px solid #5846f9; /* purple border */
+      color: white; /* White text */
+      padding: 10px 24px; /* Some padding */
+      cursor: pointer; /* Pointer/hand icon */
+      float: left; /* Float the buttons side by side */
+    }
+    
+    /* Clear floats (clearfix hack) */
+    .btn-group:after {
+      content: "";
+      clear: both;
+      display: table;
+    }
+    
+    .btn-group button:not(:last-child) {
+      border-right: none; /* Prevent double borders */
+    }
+    
+    /* Add a background color on hover */
+    .btn-group button:hover {
+      background-color: #3e8e41;
+    }
+    </style>
+<div class="w3-container w3-row-padding w3-margin" style="width: 100%;" >
+    <div class="w3-section container w3-center">
+        
+        <h1 style="padding-bottom: 15px;">AI CREATED & COMPILED SUCCESSFULLY.</h1>
+        <h2 style="padding-bottom: 15px; font-size: x-large;">Time to mint your NFT! Plese review your AI model specs.</h2>
+        <span style="color: white;">(model names are always unique & generated automatically)</span>
+        <br>
+        <br>
+        <br>
+        <br>
+        <input type="hidden" id="enable">
+
+        <p style="font-size: xx-large; color: black;">Model Name: {{ model_data['name'] }}</p>
+        <input id="modelName" type="hidden" value="{{ model_data['name'] }}">
+        <br>
+        <p style="font-size: xx-large; color: black;">Model Accuracy: {{ model_data['accuracy'] }}%</p>
+        <input id="modelAccuracy" type="hidden" value="{{ model_data['accuracy'] }}">
+        <br>
+        <p style="font-size: xx-large; color: black;">Model Description: {{ model_data['description'] }}</p>
+        <input id="modelDescription" type="hidden" value="{{ model_data['description'] }}">
+        <input id="modelType" type="hidden" value="{{ model_data['type'] }}">
+        <br>
+        <br>
+        <div class="control " id="mint-progress" style="display: none;">
+            <p id="mint-message" style="color: whitesmoke; font-size: x-large;"></p>
+            <p style="color: whitesmoke; font-size: x-large;">PLEASE DO NOT LEAVE THIS SCREEN!</p>
+            <p>
+                <div style="color: whitesmoke;" class="spinner-grow" role="status">
+                
+                </div>
+                <div style="color: whitesmoke;" class="spinner-grow" role="status">
+                    
+                </div>
+                <div style="color: whitesmoke;" class="spinner-grow" role="status">
+                    
+                </div>
+            </p>
+        </div>
+        <div class="btn-group" id="mintBTN">
+            <button class="w3-btn w3-round-large w3-black" onclick="App.createModel()" style="width: 150px;">Mint</button>
+            <button class="w3-btn w3-round-large w3-black" onclick="deleteModel();" style="width: 150px;">Delete</button>
+        </div>
+        
+    </div>
+
+    <script>
+        window.addEventListener('load', async () => {
+            App.web3 = new Web3(window.ethereum);
+            accounts = await ethereum.request({method: 'eth_requestAccounts'}); // get permission to access accounts
+            App.start();
+        });
+
+        async function deleteModel() {
+            document.getElementById('mint-message').innerHTML = 'Deleting your AI model...';
+            document.getElementById('mintBTN').style.display = 'none';
+            document.getElementById('mint-progress').style.display = 'initial';
+
+            var model = document.getElementById('modelName').value;
+            $.post("/delete_item", {
+                name: model
+            }, function (err, req, resp) {
+                document.getElementById('mint-progress').style.display = 'none';
+                document.getElementById('mintBTN').style.display = 'intial';
+                window.location.href = "/"
+            });
+        };
+    </script>
+</div>
+{% endblock %}

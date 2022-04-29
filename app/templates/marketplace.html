@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Dojo - Marketplace</title>
+    <meta content="The only place in the world you can buy and sell artificial intelligence. Explore the Dojo Marketplace." name="description">
+    <meta content="marketplace, AI, ecommerce, NFT, web3, crypto" name="keywords">
+
+    <!-- Favicons -->
+    <link href="static/images/cryptocurrency.png" rel="icon">
+    <link href="static/images/cryptocurrency.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="static/vendor/aos/aos.css" rel="stylesheet">
+    <link href="static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="static/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="static/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="static/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+    <!-- W3 CSS FILE -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <!-- WEB3 API FILES -->
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+
+    <!-- JQUERY -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Template Main CSS File -->
+    <link href="static/css/style.css" rel="stylesheet">
+</head>
+
+<style>
+    #item {
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+
+    /* style on iphones */
+    @media (max-width: 600px) {
+        #item {
+            margin-top: 50px;
+            margin-bottom: 50px;
+            width: 100%;
+        }
+    }
+</style>
+
+<body>
+    <!-- ======= Header ======= -->
+    <header id="header" class="fixed-top ">
+        <div class="container d-flex align-items-center justify-content-between">
+            <h1 class="logo"><a href="/">Dojo</a></h1>
+            <!-- Uncomment below if you prefer to use an image logo -->
+            <!-- <a href="index.html" class="logo"><img src="static/img/logo.png" alt="" class="img-fluid"></a>-->
+
+            <nav id="navbar" class="navbar">
+                <ul>
+                    <li><a class="nav-link scrollto" href="{{ url_for('main.index') }}">Home</a></li>
+                    <li><a class="nav-link scrollto" href="/#about">About</a></li>
+                    <li><a class="nav-link scrollto" href="/#services">Services</a></li>
+                    <li class="dropdown"><a href="#"><span>More</span> <i class="bi bi-chevron-down"></i></a>
+                        <ul>
+                            <li><a href="{{ url_for('main.docs') }}">Docs</a></li>
+                            <li><a href="/#demo">Demo Video</a></li>
+                            <li><a onclick="whitePaper();">Dojo White Paper</a></li>
+                            <li class="dropdown"><a href="/#faq"><span>FAQ</span> <i class="bi bi-chevron-right"></i></a>
+                                <ul>
+                                    <li><a href="/#faq">What happens to my data?</a></li>
+                                    <li><a href="/#faq">How does Dojo make money?</a></li>
+                                    <li><a href="/#faq">What types of data are supported?</a></li>
+                                    <li><a href="/#faq">How does the algorithm work?</a></li>
+                                    <li><a href="/#faq">How does the platform work?</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a class="nav-link scrollto" href="{{ url_for('main.marketplace') }}">Marketplace</a></li>
+                    <li><a class="nav-link scrollto" href="/#contact">Contact</a></li>
+                    <li><a class="getstarted scrollto"  id="profile-btn" href="{{ url_for('main.profile') }}">My Profile</a></li>
+                </ul>
+                <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav><!-- .navbar -->
+
+        </div>
+    </header><!-- End Header -->
+
+    <!-- ======= Hero Section ======= -->
+    <section id="hero" class="d-flex align-items-center">
+
+        <div class="container-fluid" data-aos="fade-up">
+            <div class="row justify-content-center">
+                <div
+                    class="col-xl-5 col-lg-6 pt-3 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
+                    <h1>Dojo Marketplace</h1>
+                    <h2>The worlds first platform to mint, buy, & sell AI</h2>
+                    <div><a href="#explore" class="btn-get-started scrollto">Explore</a></div>
+                </div>
+                <div class="col-xl-4 col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="150">
+                    <img src="static/images/crypto.svg" class="img-fluid animated" alt="">
+                </div>
+            </div>
+        </div>
+
+    </section><!-- End Hero -->
+
+    <div class="w3-container w3-padding-64 w3-center" id="explore">
+        <h1>AI For Sale</h1>
+        <div class="container-flex w3-padding-64 w3-row-padding">
+            {% if data %}
+            <div class="row">
+                {% for model in data %}
+                <div class="text-center w3-card-4" id="item" style="border-radius: 15px;">
+                    <ul class="w3-ul w3-white">
+                        <li class="w3-padding-16">
+                            <p style="margin-top: 10px;"><strong>Name:</strong> {{ model[0] }}</p>
+                        </li>
+                        <li class="w3-padding-16">
+                            <p style="margin-top: 10px;"><strong>Description:</strong> {{ model[1] }}</p>
+                        </li>
+                        <li class="w3-padding-16">
+                            <p style="margin-top: 10px;"><strong>Accuracy:</strong> {{ model[2] }}%</p>
+                        </li>
+                        <li class="w3-padding-16">
+                            <strong>Owner:</strong>
+                            <p style="margin-top: 10px; font-size: small;">{{ model[3] }}</p>
+                        </li>
+                        <li class="w3-padding-16">
+                            <p style="margin-top: 10px;"><strong>Price:</strong> {{ model[4] }} ETH</p>
+                        </li>
+                        <div class="control w3-margin" id="buy-progress" style="display: none;">
+                            <p>Transferring AI Ownership...</p>
+                            <p style="color: #D0342C;">PLEASE DO NOT LEAVE THIS SCREEN!</p>
+                            <div class="spinner-grow text-primary" role="status">
+                                
+                            </div>
+                            <div class="spinner-grow text-primary" role="status">
+                                
+                            </div>
+                            <div class="spinner-grow text-primary" role="status">
+                                
+                            </div>
+                        </div>
+                        {% if current_user.is_authenticated %}
+                        <li class="w3-padding-16">
+                            <div id="buyBTN-d">
+                                <button class="w3-btn w3-round-large w3-black buyBTN" id="{{ model[0] }}"
+                                onclick="buy(this.id);" style="width: 150px;">Buy</button>
+                            </div>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+                {% endfor %}
+            </div>
+            {% elif not data %}
+            <h1>NO MODELS ON SALE!</h1>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Vendor JS Files -->
+    <script src="static/vendor/aos/aos.js"></script>
+    <script src="static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="static/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="static/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="static/vendor/purecounter/purecounter.js"></script>
+    <script src="static/vendor/swiper/swiper-bundle.min.js"></script>
+
+    <!-- Main JS File -->
+    <script src="static/js/main.js"></script>
+
+    <input type="hidden" id="enable">
+    <script src="static/js/web3.js"></script>
+
+    <script>
+        async function buy(clicked) {
+            App.web3 = new Web3(window.ethereum);
+            accounts = await ethereum.request({
+                method: 'eth_requestAccounts'
+            });
+            App.start();
+
+            document.getElementById('buyBTN-d').style.display = 'none';
+            document.getElementById('buy-progress').style.display = 'initial';
+
+            var price = await App.meta.methods.checkPrice(clicked).call();
+
+            var etherValue = App.web3.utils.fromWei(price.toString(), 'ether');
+            var dojoETHFee = Number(etherValue) * 0.05;
+            var dojoWEIfee = App.web3.utils.toWei(dojoETHFee.toString(), 'ether');
+
+            resp = await App.meta.methods.buyModel(clicked).send({
+                from: accounts[0],
+                value: Number(price) + Number(dojoWEIfee)
+            });
+
+            $.post("/buy_item", {
+                buyer: accounts[0],
+                item: clicked
+            }, function (err, req, resp) {
+                document.getElementById('buy-progress').style.display = 'none';
+                document.getElementById('buyBTN-d').style.display = 'initial';
+                window.location.href = "/profile"
+            });
+        };
+
+        // white paper alert for MVP
+        function whitePaper() {
+            alert("White Paper Coming Soon!");
+        };
+    </script>
+</body>
+
+</html>

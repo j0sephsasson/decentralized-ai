@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+node_modules
+app/documentation/dojo_db_conn_string.txt
+app/documentation/heroku_cmd_commands.txt
+app/documentation/reset_db.txt
+truffle-config.js
+app/static/vids/dojo_live_demo_video.mp4

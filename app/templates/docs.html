@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Dojo - Documentation</title>
+    <meta content="Dojo AI documentation. Explore the docs to learn more about the futur of machine learning and NFTs." name="description">
+    <meta content="docs, documentation, dojo docs, dojo AI" name="keywords">
+
+    <!-- Favicons -->
+    <link href="static/images/cryptocurrency.png" rel="icon">
+    <link href="static/images/cryptocurrency.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="static/vendor/aos/aos.css" rel="stylesheet">
+    <link href="static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="static/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="static/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="static/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+    <!-- W3 CSS FILE -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <!-- WEB3 API FILES -->
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+
+    <!-- JQUERY -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Template Main CSS File -->
+    <link href="static/css/style.css" rel="stylesheet">
+
+    <!-- FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+</head>
+
+<style>
+    .flip-card {
+        background-color: transparent;
+
+        height: 300px;
+        perspective: 1000px;
+        border-radius: 15px;
+    }
+
+    .flip-card-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        transition: transform 0.6s;
+        transform-style: preserve-3d;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    .flip-card:hover .flip-card-inner {
+        transform: rotateY(180deg);
+    }
+
+    .flip-card-front,
+    .flip-card-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+    }
+
+    .flip-card-front {
+        background-color: white;
+        color: black;
+    }
+
+    .flip-card-back {
+        background-color: whitesmoke;
+        color: black;
+        transform: rotateY(180deg);
+    }
+
+    /* style on iphones */
+    @media (max-width: 600px) {
+        .flip-card {
+            margin-top: 25px;
+            margin-bottom: 25px;
+        }
+    }
+</style>
+
+<body>
+    <!-- ======= Header ======= -->
+    <header id="header" class="fixed-top ">
+        <div class="container d-flex align-items-center justify-content-between">
+            <h1 class="logo"><a href="/">Dojo</a></h1>
+            <!-- Uncomment below if you prefer to use an image logo -->
+            <!-- <a href="index.html" class="logo"><img src="static/img/logo.png" alt="" class="img-fluid"></a>-->
+
+            <nav id="navbar" class="navbar">
+                <ul>
+                    <li><a class="nav-link scrollto" href="{{ url_for('main.index') }}">Home</a></li>
+                    <li><a class="nav-link scrollto" href="/#about">About</a></li>
+                    <li><a class="nav-link scrollto" href="/#services">Services</a></li>
+                    <li class="dropdown"><a href="#"><span>More</span> <i class="bi bi-chevron-down"></i></a>
+                        <ul>
+                            <li><a href="{{ url_for('main.docs') }}">Docs</a></li>
+                            <li><a href="/#demo">Demo Video</a></li>
+                            <li><a onclick="whitePaper();">Dojo White Paper</a></li>
+                            <li class="dropdown"><a href="/#faq"><span>FAQ</span> <i
+                                        class="bi bi-chevron-right"></i></a>
+                                <ul>
+                                    <li><a href="/#faq">What happens to my data?</a></li>
+                                    <li><a href="/#faq">How does Dojo make money?</a></li>
+                                    <li><a href="/#faq">What types of data are supported?</a></li>
+                                    <li><a href="/#faq">How does the algorithm work?</a></li>
+                                    <li><a href="/#faq">How does the platform work?</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a class="nav-link scrollto" href="{{ url_for('main.marketplace') }}">Marketplace</a></li>
+                    <li><a class="nav-link scrollto" href="/#contact">Contact</a></li>
+                    <li><a class="getstarted scrollto" id="profile-btn" href="{{ url_for('main.profile') }}">My Profile</a></li>
+                </ul>
+                <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav><!-- .navbar -->
+
+        </div>
+    </header><!-- End Header -->
+
+    <!-- ======= Hero Section ======= -->
+    <section id="hero" class="d-flex align-items-center">
+
+        <div class="container-fluid" data-aos="fade-up">
+            <div class="row justify-content-center">
+                <div
+                    class="col-xl-5 col-lg-6 pt-3 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
+                    <h1>Documentation</h1>
+                    <h2>The worlds first platform to mint, buy, & sell AI</h2>
+                    <div><a href="#explore" class="btn-get-started scrollto">Explore</a></div>
+                </div>
+                <div class="col-xl-4 col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="150">
+                    <img src="static/images/paper.svg" class="img-fluid animated" alt="" width="80%">
+                </div>
+            </div>
+        </div>
+
+    </section><!-- End Hero -->
+
+    <div class="w3-container w3-padding-64 w3-center" id="explore">
+        <h2>I. Elucidating AI</h2>
+        <br>
+        <div class="container-flex w3-row-padding">
+
+            <div class="row">
+
+                <div class="flip-card w3-third">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <strong>
+                                <p class="w3-margin"
+                                    style="padding-top: 115px; font-family: 'Indie Flower', cursive; font-size: xx-large;">
+                                    What is AI?</p>
+                            </strong>
+                        </div>
+                        <div class="flip-card-back">
+                            <p class="w3-margin" style="padding-top: 32px;">At the convergence of computers, math, and
+                                data — there is AI; a computer program that aims to mimic the human decision making
+                                process.</p>
+                            <p class="w3-margin" style="padding-top: 32px;">Picture AI as an umbrella — under this
+                                umbrella there is; Machine Learning, Deep Learning, and Reinforcement Learning.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flip-card w3-third">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <strong>
+                                <p class="w3-margin"
+                                    style="padding-top: 115px; font-family: 'Indie Flower', cursive; font-size: xx-large;">
+                                    What type of AI is Dojo?</p>
+                            </strong>
+                        </div>
+                        <div class="flip-card-back">
+                            <p class="w3-margin" style="padding-top: 32px;">The proprietary Dojo algorithm creates both
+                                <strong>machine learning</strong> and <strong>deep learning</strong> models.</p>
+                            <p class="w3-margin" style="padding-top: 32px;">The algorithm automatically recognizes the
+                                type of task, and creates the proper model for optimal accuracy. Depending on the data,
+                                the algorithm may utilize an ensemble of AI's.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flip-card w3-third">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <strong>
+                                <p class="w3-margin"
+                                    style="padding-top: 115px; font-family: 'Indie Flower', cursive; font-size: xx-large;">
+                                    What are examples of AI?</p>
+                            </strong>
+                        </div>
+                        <div class="flip-card-back">
+                            <p class="w3-margin" style="padding-top: 16px;">AI is an inherent part of our everyday lives
+                                — whether we’re aware or not.</p>
+                            <p class="w3-margin" style="padding-top: 32px;">From Netflix to the Instagram explore page,
+                                all the recommendations and pictures on our feed, this is AI at work.</p>
+                            <p class="w3-margin" style="padding-top: 16px;">AI exists in our homes; smart devices that
+                                react to a change in temperature or lighting</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="w3-container w3-padding-64 w3-center" id="">
+        <h2>II. Behind The Scenes</h2>
+        <br>
+        <div class="container-flex w3-row-padding">
+
+            <div class="row">
+
+                <div class="flip-card w3-third">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <strong>
+                                <p class="w3-margin"
+                                    style="padding-top: 115px; font-family: 'Indie Flower', cursive; font-size: xx-large;">
+                                    How does AI learn?</p>
+                            </strong>
+                        </div>
+                        <div class="flip-card-back">
+                            <p class="w3-margin" style="padding-top: 32px;">Using math, of course! AI models have different mathematical functions for different tasks.</p>
+                            <p class="w3-margin" style="padding-top: 32px;">The model learns by minimizing the error of that function. The "learned" formulas leading to minimal loss is how the model makes predictions on new, un-seen data.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flip-card w3-third">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <strong>
+                                <p class="w3-margin"
+                                    style="padding-top: 115px; font-family: 'Indie Flower', cursive; font-size: xx-large;">
+                                    Types of ML & DL</p>
+                            </strong>
+                        </div>
+                        <div class="flip-card-back">
+                            <p class="w3-margin" style="font-size: small; padding-top: 16px;">ML is a subset of AI that uses statistical learning algorithms to build smart systems. DL is a subset of AI that uses neural networks to mimic the way a human brain filters information.</p>
+                            <p class="w3-margin" style="padding-top: 16px; font-size: small;">The two most prevalent AI tasks are<strong> Regression, and Classification.</strong></p>
+                            <p class="w3-margin" style="padding-top: 16px; font-size: small;"><strong>Classification task:</strong> predict if AAPL stock will go up or down tomorrow. <strong>Regression task:</strong> predict the close price of AAPL stock tomorrow</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flip-card w3-third">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <strong>
+                                <p class="w3-margin"
+                                    style="padding-top: 115px; font-family: 'Indie Flower', cursive; font-size: xx-large;">
+                                    What is AI capable of?</p>
+                            </strong>
+                        </div>
+                        <div class="flip-card-back">
+                            <p class="w3-margin" style="font-size: small;"><strong>Human neural network—</strong> “Number of neurons ~ 86 Billion, number of synapses ~ 150 Trillion, another generalization: average number of synapses per neuron ~ 1,744.”</p>
+                            <p class="w3-margin" style="padding-top: 16px; font-size: small;"><strong>Specialized artificial neural network—</strong> “GPT-3’s full version has a capacity of 175 billion machine learning parameters.”</p>
+                            <p class="w3-margin" style="padding-top: 16px; font-size: small;">150 trillion/150 billion = 1,000. The most powerful AIs would have to scale by a factor of one thousand for their connections to be on par with the brain…</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="w3-container w3-padding-64 w3-center" id="">
+        <h2>III. Dojo</h2>
+        <br>
+        <div class="container-flex w3-row-padding">
+
+            <div class="row">
+
+                <div class="flip-card w3-third">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <strong>
+                                <p class="w3-margin"
+                                    style="padding-top: 115px; font-family: 'Indie Flower', cursive; font-size: xx-large;">
+                                    Why Dojo?</p>
+                            </strong>
+                        </div>
+                        <div class="flip-card-back">
+                            <p class="w3-margin" style="padding-top: 32px;">Thanks to Dojo, you no longer need to hire an engineer to develop AI models. Rapidly create your own AI, for any task you'd like.</p>
+                            <p class="w3-margin" style="padding-top: 32px;">Accuracy: A custom model will not outperform Dojo. The algorithm continually outperforms custom models.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flip-card w3-third">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <strong>
+                                <p class="w3-margin"
+                                    style="padding-top: 115px; font-family: 'Indie Flower', cursive; font-size: xx-large;">
+                                    How is accuracy calculated?</p>
+                            </strong>
+                        </div>
+                        <div class="flip-card-back">
+                            <p class="w3-margin" style="font-size: small; padding-top: 16px;">20% of your data is used to test the model accuracy</p>
+                            <p class="w3-margin" style="padding-top: 16px; font-size: small;"><strong>Classification:</strong> The accuracy is calculated by dividing the amount of correct predictions, by the total number of samples.</p>
+                            <p class="w3-margin" style="padding-top: 16px; font-size: small;"><strong>Regression:</strong> The accuracy is calculated using the R2 score. 1 - (sum of squares of misses/total sum of squares)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flip-card w3-third">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <strong>
+                                <p class="w3-margin"
+                                    style="padding-top: 115px; font-family: 'Indie Flower', cursive; font-size: xx-large;">
+                                    Blockchain Information</p>
+                            </strong>
+                        </div>
+                        <div class="flip-card-back">
+                            <p class="w3-margin" style="padding-top: 32px; font-size: x-small;"><strong>Contract Address:</strong> 0x85De58930C8955eB3F35e1A3b8160d5B69671564</p>
+                            <p class="w3-margin" style="padding-top: 32px; font-size: x-small;"><strong>Platform Wallet:</strong> 0xa8e7Db9573a0b23875b028a9Ebb45D7B2E6a2F84</p>
+                            <p class="w3-margin" style="padding-top: 32px;"><a href="https://etherscan.io/address/0x85De58930C8955eB3F35e1A3b8160d5B69671564">View on etherscan</a></p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- Vendor JS Files -->
+    <script src="static/vendor/aos/aos.js"></script>
+    <script src="static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="static/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="static/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="static/vendor/purecounter/purecounter.js"></script>
+    <script src="static/vendor/swiper/swiper-bundle.min.js"></script>
+
+    <!-- Main JS File -->
+    <script src="static/js/main.js"></script>
+
+    <script>
+        // white paper alert for MVP
+        function whitePaper() {
+            alert("White Paper Coming Soon!");
+        };
+    </script>
+</body>
+
+</html>

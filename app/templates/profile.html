@@ -1,0 +1,316 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    table,
+    th,
+    td {
+        border: 1px solid black;
+    }
+
+    td {
+        width: 100px;
+    }
+
+    table {
+        height: 200px;
+        overflow: scroll;
+    }
+
+    #user {
+        font-size: x-large;
+    }
+
+    /* style on iphones */
+    @media (max-width: 770px) {
+        #user {
+            font-size: x-small;
+        }
+    }
+
+    #main-table {
+        overflow-x: scroll;
+        overflow-y: hidden;
+        white-space: nowrap;
+    }
+
+    #main-table .table {
+        display: inline-block;
+    }
+</style>
+<div class="w3-container w3-center w3-row-padding" id="profile">
+    <div class="w3-section container ">
+        <div>
+
+            <!-- doc card 3 -->
+            <div class="column">
+                <ul class="w3-ul w3-white w3-hover-shadow">
+                    <li class="w3-black w3-xlarge w3-padding-32">Welcome, <span id="user"></span>!</li>
+
+                    {% with messages = get_flashed_messages() %}
+                    {% if 'Job ID' in messages[0] %}
+                    <div class="alert alert-success" role="alert">
+                        {{ messages[0] }}
+                    </div>
+                    {% elif 'failed' in messages[0] %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ messages[0] }}
+                    </div>
+                    {% elif 'training' in messages[0] %}
+                    <div class="alert alert-primary" role="alert">
+                        {{ messages[0] }}
+                      </div>
+                    {% elif 'found' in messages[0] %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ messages[0] }}
+                    </div>
+                    {% endif %}
+                    {% endwith %}
+
+                    <li class="w3-padding-16">
+                        <form action="/job_status" method="post">
+                            <label class="label w3-large" style="padding-bottom: 25px;">Training Status</label>
+                            <br>
+                            <input class="text-center" type="text" name="job" id="job-id" placeholder="Job ID" required>
+                            <br>
+                            <button class="w3-btn w3-round w3-black w3-margin" >Check Status</button>
+                        </form>
+                    </li>
+
+                    <!-- content field -->
+                    <li class="w3-padding-16">
+                        <label class="label w3-large" style="padding-bottom: 25px;">My Collection</label>
+                        <div id="main-table" class="w3-center">
+                            {% if model_data %}
+                            <table style="width: 100%;" class="w3-padding-16 w3-center">
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th style="padding: 10px;">Accuracy</th>
+                                    <th style="padding: 10px;">On Sale</th>
+                                    <th>AI</th>
+                                </tr>
+                                {% for model in model_data %}
+                                <tr>
+                                    <td>
+                                        <p class="w3-margin">{{ model[0] }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="w3-margin">{{ model[2] }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="w3-margin">{{ model[1] }}%</p>
+                                    </td>
+                                    {% if model[3] == True %}
+                                    <td>
+                                        <p class="w3-margin w3-large" style="color: green;">Yes</p>
+                                    </td>
+                                    {% elif model[3] == False %}
+                                    <td>
+                                        <p class="w3-margin w3-large" style="color: red;">No</p>
+                                    </td>
+                                    {% endif %}
+                                    <td>
+                                        <script
+                                            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+                                            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+                                            crossorigin="anonymous"></script>
+                                        <script
+                                            src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+                                            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+                                            crossorigin="anonymous"></script>
+
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-primary w3-margin" data-toggle="modal"
+                                            data-target="#exampleModalCenter">
+                                            Utilize
+                                        </button>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                                            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title is-center" id="exampleModalCenterTitle">
+                                                            Use Your AI NFT!</h5>
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">Close</button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <br>
+                                                        <span>Supported Uploads: csv, xlsx, html</span>
+                                                        <br>
+                                                        <div class="control">
+                                                            <label id="upload-label"
+                                                                class="w3-margin w3-center w3-hover-shadow"
+                                                                style="cursor: pointer; padding: 10px 20px; background-color: black; border-radius: 15px; color: white;"
+                                                                for="upload">Upload Data</label>
+                                                            <input class="input w3-center w3-margin" type="file"
+                                                                style="opacity: 0; position: absolute; z-index: -1;"
+                                                                id="upload" onchange="registerUpload()" name="upload"
+                                                                required>
+                                                            <script>
+                                                                // register profile photo upload from user profile
+                                                                function registerUpload() {
+                                                                    document.getElementById("upload-label").style.backgroundColor = 'green';
+                                                                };
+                                                            </script>
+                                                        </div>
+                                                        <br>
+                                                        <label style="display: block;" for="row">Select Row:</label>
+                                                        <input id="row-number" type="number" name="row" required>
+                                                        <br>
+                                                        <br>
+                                                        <label style="display: block;" for="row">Confirm Model:</label>
+                                                        <input id="T-M" type="text" name="TM" required>
+                                                        <br>
+                                                        <div class="control">
+                                                            <button onclick="useModel();"
+                                                                class="w3-btn w3-round-large w3-hover-white w3-margin"
+                                                                style="width: 100px; background-color: black; color: white;">Send
+                                                                To AI</button>
+                                                            
+                                                        </div>
+                                                        <div class="control w3-margin" id="utilize-progress" style="display: none;">
+                                                            <p>Fetching AI model results...</p>
+                    
+                                                            <div class="spinner-grow text-primary" role="status">
+                                                                
+                                                            </div>
+                                                            <div class="spinner-grow text-primary" role="status">
+                                                                
+                                                            </div>
+                                                            <div class="spinner-grow text-primary" role="status">
+                                                                
+                                                            </div>
+                                                        </div>
+                                                        <br>
+                                                        <div class="control" id="results" style="display: none;">
+                                                            <hr>
+                                                            <p id="showResults"></p>
+                                                            <p id="show-error"></p>
+                                                            <br>
+                                                            <button onclick="clearInputs();" type="button" class="btn btn-secondary">Clear</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </li>
+
+                    <!-- content field -->
+                    <li class="w3-padding-16">
+                        <div class="field">
+                            <label class="label w3-large">List NFT for sale</label>
+                            <div class="control">
+                                <input class="input w3-center w3-margin" type="text" id="sell-name"
+                                    placeholder="Model Name" style="width: 50%; border-radius: 15px;">
+                            </div>
+                            <div class="control">
+                                <input class="input w3-center w3-margin" type="text" id="sell-price"
+                                    placeholder="Model Price" style="width: 50%; border-radius: 15px;">
+                            </div>
+                            <div class="control w3-margin" id="list-progress" style="display: none;">
+                                <p>Listing your AI model for sale...</p>
+                                <p style="color: #D0342C;">PLEASE DO NOT LEAVE THIS SCREEN!</p>
+                                <div class="spinner-grow text-primary" role="status">
+                                    
+                                </div>
+                                <div class="spinner-grow text-primary" role="status">
+                                    
+                                </div>
+                                <div class="spinner-grow text-primary" role="status">
+                                    
+                                </div>
+                            </div>
+                            <div class="control">
+                                <button id="listBTN" class="w3-btn w3-round-large w3-black" style="width: 150px;"
+                                    onclick="App.putModelUpForSale()">List</button>
+                            </div>
+                        </div>
+                    </li>
+
+                    {% elif not model_data %}
+                    <div style="padding-top: 25px;" class="column is-one-third">
+                        <p>No models on this profile. Explore the <a href="/marketplace">marketplace</a> or view our <a
+                                href="#services">services</a>, to get started.</p>
+                    </div>
+                    {% endif %}
+                    <input type="hidden" id="enable">
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var user = document.getElementById('user');
+    window.addEventListener('load', function () {
+        user.innerHTML = "{{ c_user }}"
+    });
+
+    window.addEventListener('load', async () => {
+        App.web3 = new Web3(window.ethereum);
+        accounts = await ethereum.request({
+            method: 'eth_requestAccounts'
+        }); // get permission to access accounts
+        App.start();
+    });
+
+    async function useModel() {
+        document.getElementById('results').style.display = 'none';
+        document.getElementById('utilize-progress').style.display = 'initial';
+
+        var ins = document.getElementById('upload').files;
+        var file = ins[0];
+
+        var fd = new FormData();
+        fd.append('upload', file);
+        fd.append('name', document.getElementById('T-M').value);
+        fd.append('row', document.getElementById('row-number').value);
+
+        $.ajax({
+            type: "POST",
+            url: '/use_model',
+            data: fd,
+            processData: false,
+            contentType: false,
+        }).done(function (err, req, resp) {
+            if (resp.responseJSON.resp === 'It appears your model was trained on different data.') {
+                document.getElementById('utilize-progress').style.display = 'none';
+                document.getElementById('results').style.display = 'initial';
+                document.getElementById('showResults').innerHTML = resp.responseJSON.resp;
+                document.getElementById('show-error').innerHTML = 'Please ensure the data has the same columns as the training data.';
+                document.getElementById('show-error').style.display = 'initial';
+            
+            } else if (resp.responseJSON.resp === 'No model found with that name.') {
+                document.getElementById('utilize-progress').style.display = 'none';
+                document.getElementById('results').style.display = 'initial';
+                document.getElementById('showResults').innerHTML = resp.responseJSON.resp;
+            } else {
+                document.getElementById('utilize-progress').style.display = 'none';
+                document.getElementById('show-error').style.display = 'none';
+                document.getElementById('results').style.display = 'initial';
+                document.getElementById('showResults').innerHTML = 'AI Results: ' + resp.responseJSON.resp;
+            };
+            
+        });
+    };
+
+    function clearInputs() {
+        document.getElementById('upload').value = null;
+        document.getElementById('upload-label').style.backgroundColor = 'black';
+        document.getElementById('T-M').value = null;
+        document.getElementById('row-number').value = null;
+        document.getElementById('showResults').innerHTML = '';
+        document.getElementById('results').style.display = 'none';
+    };
+</script>
+</div>
+{% endblock %}
